@@ -34,10 +34,10 @@ def twoSum(self, nums: List[int], target: int) -> List[int]:
 
     # Sort then Binary search
     # Time: O(nlog(n))  Space: 1
-    nums.sort()
+    # nums.sort()
 
-    for i, num in enumerate(nums):
-        if target - num < num 
+    # for i, num in enumerate(nums):
+    #     if target - num < num
 
     
         
