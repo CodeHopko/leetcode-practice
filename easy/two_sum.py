@@ -1,5 +1,5 @@
 from collections import defaultdict
-from math import floor, ceil
+from math import floor
 
 
 def twoSum(self, nums: List[int], target: int) -> List[int]:
@@ -23,7 +23,7 @@ def twoSum(self, nums: List[int], target: int) -> List[int]:
     num_dict = defaultdict(list)
 
     for i, num in enumerate(nums):
-        num_dict[num].append(i)
+        num_dict[num].appright(i)
 
     for num, index in num_dict.items():
         # for cases where (target - num) == num
@@ -34,7 +34,7 @@ def twoSum(self, nums: List[int], target: int) -> List[int]:
             return index[0], num_dict[target - num][0]
 
     # Sort then Binary search
-    # Time: O(nlog(n))  Space: log(n)?
+    # Time: O(nlog(n))  Space: O(k) recursive or O(1) iterative
     for i, num in enumerate(nums):
         other_num = target - num
         other_num_idx = binary_search(
@@ -46,25 +46,38 @@ def twoSum(self, nums: List[int], target: int) -> List[int]:
     return None
 
 
-def binary_search(arr, start, end, target, ordered=True):
-    '''uses binary search to locate a target number'''
-    if not ordered:
-        arr.sort()
-        binary_search(arr, start, end, target)
-
-    while end - start >= 1:
-        mid_idx = floor((end - start)/2)
+def binary_search_recursive(arr, left, right, target):
+    # Time: O(nlogn)    Space: O(k levels deep)
+    '''uses recursive binary search to locate a target number'''
+    while left <= right:
+        mid_idx = floor((right + left)/2)
         mid_val = arr[mid_idx]
 
         if mid_val == target:
             return mid_idx
 
-        if mid_val > target:
+        elif mid_val > target:
             # search left
-            binary_search(arr, start, mid_idx-1, target)
+            binary_search(arr, left, mid_idx-1, target)
 
-        if mid_val < target:
+        else:
             # search right
-            binary_search(arr, mid_idx+1, end, target)
+            binary_search(arr, mid_idx+1, right, target)
+    return -1
 
-    return None
+
+def binary_search_iterative(arr, target):
+    # Time: O(nlogn)    Space: O(1)
+    '''uses iterative binary search to find a target'''
+    left = 0
+    right = len(arr) - 1
+
+    while left <= right:
+        middle = floor((left + right) / 2)
+        if arr[middle] < target:
+            left = middle + 1
+        elif arr[middle] > target:
+            right = middle - 1
+        else:
+            return middle
+    return -1
