@@ -58,11 +58,11 @@ def binary_search_recursive(arr, left, right, target):
 
         elif mid_val > target:
             # search left
-            binary_search(arr, left, mid_idx-1, target)
+            return binary_search(arr, left, mid_idx-1, target)
 
         else:
             # search right
-            binary_search(arr, mid_idx+1, right, target)
+            return binary_search(arr, mid_idx+1, right, target)
     return -1
 
 
