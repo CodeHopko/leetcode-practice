@@ -22,7 +22,7 @@ class Solution:
 
             total = val1 + val2 + carry
             value = total % 10
-            carry = math.floor(total / 10)
+            carry = floor(total / 10)
 
             # add node to the chain and move chain to next node
             l3_tail.next = ListNode(value)
